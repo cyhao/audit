@@ -4,7 +4,10 @@
 
 ### 环境变量
   python
+  
   django
+  
   mysql
+  
   inception
 
