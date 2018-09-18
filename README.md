@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # archer
 基于inception的自动化SQL操作平台，支持工单、审核、定时任务、邮件、OSC等功能，还可配置MySQL查询、慢查询管理、会话管理等
 
@@ -274,15 +273,5 @@ inception无法连接备份库
 
 #### 定时任务未执行   
 - 检查django-apscheduler相关表是否有创建，可使用`python3 manage.py migrate`创建  
-=======
-# audit
-基于archer的自适配
->基于archer第一版开发的工单系统使用还不错，现在archer第二版本出来，研究一下
 
-### 环境
-  python
-  django
-  mysql
-  inception
->>>>>>> 04d3b1ba14c1ae3bcc173ee20e1254e3f43d31d6
 
