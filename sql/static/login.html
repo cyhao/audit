@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head> 
+	<title>自动化SQL工单平台</title>
+    {% load staticfiles %}
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- 引入 Bootstrap -->
+      <link href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}" rel="stylesheet">
+	  <link href="{% static 'user/css/user1.css' %}" rel="stylesheet">
+      <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+      <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+      <!--[if lt IE 9]>
+         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+      <![endif]-->
+</head>
+<body style="background-color:#edeff1;">
+<div class="row lsb-login">
+    <div class="col-lg-4 col-sm-6 mypanalbox">
+        <form class="login-form fade-in-effect" id="login" method="post" role="form">
+            {% csrf_token %}
+            <div class="form-group is-focused">
+                <label class="control-label" for="inputUsername">Username</label>
+                <input class="form-control ng-valid ng-dirty ng-touched" id="inputUsername" name="username" type="text"required>
+            </div>
+            <div class="form-group is-focused">
+                <label class="control-label" for="inputPassword">Password</label>
+                <input class="form-control ng-valid ng-dirty ng-touched" id="inputPassword" name="password" type="password" required>
+            </div>
+            <div class="form-group is-focused">
+                <label class="control-label" for="inputCheckcode">验证码</label>
+                <input type="text" class="form-control" id="inputCheckcode" name="check_code" required>
+                <img id ='check_code_click'  src="/check_code/" onclick="ChangeCode(this)">
+	    </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" id="btnLogin" type="button"><i class="fa-lock"></i>登录</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="wrongpwd-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					提示
+				</h4>
+			</div>
+			<div class="modal-body" id="wrongpwd-modal-body"></div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">确定
+				</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+
+	<!--底部部分 -->	
+	<div class="row clearfix user-bottom-div">
+		<p><strong>自动化SQL工单平台.</strong>&nbsp; Developed by DBA.</p>
+	</div>
+</div>
+	<!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery，务必先引入jquery js再引入bootstrap js) -->
+	<script src="{% static 'jquery/jquery.min.js' %}"></script>
+	<!-- 包括所有已编译的插件 -->
+	<script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'user/js/login.js' %}"></script>
+</body>
+<script>
+    <!-- 退出登录后清空sessionStorage -->
+    $(document).ready(function () {
+        sessionStorage.clear();
+    })
+</script>
+<script>
+        // 点击一次,更改图片内容,
+        function ChangeCode(ths){
+            ths.src = ths.src + '?';
+        }
+</script>
+</html>
