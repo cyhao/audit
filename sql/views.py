@@ -627,7 +627,7 @@ def workflows(request):
     # 获取用户信息
     loginUser = request.session.get('login_username', False)
     loginUserOb = users.objects.get(username=loginUser)
-    context = {'currentMenu': 'queryapply', "loginUserOb": loginUserOb}
+    context = {'currentMenu': 'waitevent', "loginUserOb": loginUserOb}
     return render(request, "workflow.html", context)
 
 

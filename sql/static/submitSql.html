@@ -317,6 +317,9 @@
             var review_man = $(this).val();
             $("div#" + review_man).hide();
         });
+        $("#listAllToPerson").selectpicker({
+            noneSelectedText : '请选择邮件通知人员：'//默认显示内容
+        });
     </script>
     <!--init -->
     <script>

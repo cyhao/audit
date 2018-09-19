@@ -105,10 +105,9 @@ def authenticateEntry(request):
     username = request.POST.get('username')
     password = request.POST.get('password')
     input_code = request.POST.get('ccode')
-    #import pdb;pdb.set_trace()
     checkcode = request.session['CheckCode'].lower()
     ip_code = input_code.lower()
-    if input_code == checkcode:
+    if ip_code == checkcode:
         result = loginAuthenticate(username, password)
     else:
         result = {'status': 1, 'msg': '验证码错误！', 'data': ''}

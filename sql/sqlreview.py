@@ -50,6 +50,9 @@ def getMasterConnStr(clusterName):
 # SQL工单执行回调
 def execute_call_back(workflowId, clusterName, url):
     workflowDetail = workflow.objects.get(id=workflowId)
+    toPerson1 = workflowDetail.to_person
+    #toPerson字符串转换成列表
+    toPerson = ast.literal_eval(toPerson1)
     # 获取审核人
     try:
         listAllReviewMen = json.loads(workflowDetail.review_man)
@@ -86,13 +89,21 @@ def execute_call_back(workflowId, clusterName, url):
             workflowStatus = workflowDetail.status
             workflowName = workflowDetail.workflow_name
             objEngineer = users.objects.get(username=engineer)
-            strTitle = "SQL上线工单执行完毕 # " + str(workflowId)
-            strContent = "发起人：" + engineer + "\n审核人：" + reviewMen + "\n工单地址：" + url + "\n工单名称： " + workflowName + "\n执行结果：" + workflowStatus
             reviewManAddr = [email['email'] for email in
                              users.objects.filter(username__in=listAllReviewMen).values('email')]
             dbaAddr = [email['email'] for email in users.objects.filter(role='DBA').values('email')]
-            listCcAddr = reviewManAddr + dbaAddr
-            mailSender.sendEmail(strTitle, strContent, [objEngineer.email], listCcAddr=listCcAddr)
+            toperson = list(toPerson)
+            Eemail = [objEngineer.email]
+            listCcAddr = dbaAddr + Eemail + toperson + reviewManAddr
+            allperson = list(set(listCcAddr))
+            if workflowStatus == '已正常结束':
+                strTitle = "SQL上线工单执行完毕#" + str(workflowId)
+                strContent = "发起人：" + engineer + "\n审核人：" + reviewMen + "\n工单地址：" + url + "\n工单名称： " + workflowName + "\n执行结果：" + workflowStatus
+                mailSender.sendEmail(strTitle, strContent, allperson)
+            else:
+                strTitle = "SQL上线工单执行异常#" + str(workflowId) + ",请查看异常信息！"
+                strContent = "发起人：" + engineer + "\n审核人：" + reviewMen + "\n工单地址：" + url + "\n工单名称： " + workflowName + "\n执行结果：" + workflowStatus
+                mailSender.sendEmail(strTitle, strContent, allperson)
 
 
 # 给定时任务执行sql
