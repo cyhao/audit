@@ -8,6 +8,7 @@
     <input type="hidden" id="editClustername" value="{{ workflowDetail.cluster_name }}"/>
     <input type="hidden" id="editIsbackup" value="{{ workflowDetail.is_backup }}"/>
     <input type="hidden" id="editReviewman" value="{{ listAllReviewMen.0 }}"/>
+    <input type="hidden" id="editToperson" value="{{ workflowDetail.to_person }}"/>
     <input type="hidden" id="editSubReviewman" value="{{ listAllReviewMen.1 }}"/>
     <input type="hidden" id="sqlMaxRowNumber" value="{{ rows|length }}">
     <hr>
@@ -285,6 +286,7 @@
         var editClustername = $("#editClustername").val();
         var editIsbackup = $("#editIsbackup").val();
         var editReviewman = $("#editReviewman").val();
+        var editToperson = $("#editToperson").val();
         var editSubReviewman = $("#editSubReviewman").val();
 
         $("#btnEditSql").click(function () {
@@ -294,6 +296,7 @@
             sessionStorage.setItem('editClustername', editClustername);
             sessionStorage.setItem('editIsbackup', editIsbackup);
             sessionStorage.setItem('editReviewman', editReviewman);
+            sessionStorage.setItem('editToperson', editToperson);
             sessionStorage.setItem('editSubReviewman', editSubReviewman);
         });
         $("#btnViewSql").click(function () {
@@ -303,6 +306,7 @@
             sessionStorage.setItem('editClustername', editClustername);
             sessionStorage.setItem('editIsbackup', editIsbackup);
             sessionStorage.setItem('editReviewman', editReviewman);
+            sessionStorage.setItem('editToperson', editToperson);
             sessionStorage.setItem('editSubReviewman', editSubReviewman);
         });
         $("#btnSubmitOtherCluster").click(function () {
@@ -310,6 +314,7 @@
             sessionStorage.setItem('editSqlContent', editSqlContent);
             sessionStorage.setItem('editIsbackup', editIsbackup);
             sessionStorage.setItem('editReviewman', editReviewman);
+            sessionStorage.setItem('editToperson', editToperson);
             sessionStorage.setItem('editSubReviewman', editSubReviewman);
         });
 

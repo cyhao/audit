@@ -36,6 +36,7 @@ def global_info(request):
     loginUser = request.session.get('login_username', None)
     if loginUser is not None:
         user = users.objects.get(username=loginUser)
+        oprole = user.role
         UserDisplay = user.display
         if UserDisplay == '':
             UserDisplay = loginUser
@@ -52,10 +53,12 @@ def global_info(request):
         leftMenuBtns = ()
         UserDisplay = ''
         todo = 0
+        oprole = ''
 
     return {
         'loginUser': loginUser,
         'leftMenuBtns': leftMenuBtns,
         'UserDisplay': UserDisplay,
-        'todo': todo
+        'todo': todo,
+        'oprole': oprole
     }

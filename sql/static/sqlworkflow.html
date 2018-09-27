@@ -5,9 +5,19 @@
     <div id="toolbar" class="form-inline ">
         <div class="form-group bootstrap-select ">
             <select id="navStatus" class="dropdown-menu-right selectpicker ">
-                <option value="all" selected="selected">全部工单</option>
-                <option value="manreviewing">待审核</option>
-                <option value="pass">审核通过</option>
+                {% if oprole == '工程师' %}
+                    <option value="all" selected="selected">全部工单</option>
+                    <option value="manreviewing">待审核</option>
+                    <option value="pass">审核通过</option>
+                {% elif oprole == '审核人' %}
+                    <option value="all">全部工单</option>
+                    <option value="manreviewing" selected="selected">待审核</option>
+                    <option value="pass">审核通过</option>
+                {% else %}
+                    <option value="all">全部工单</option>
+                    <option value="manreviewing">待审核</option>
+                    <option value="pass"  selected="selected">审核通过</option>
+                {% endif %}
                 <option value="timingtask">定时执行</option>
                 <option value="executing">执行中</option>
                 <option value="finish">已执行完毕</option>
