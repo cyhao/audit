@@ -12,6 +12,8 @@ from django.conf import settings
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.contrib import auth
+from .forms import ChangepwdForm
 
 from sql.jobs import job_info, add_sqlcronjob, del_sqlcronjob
 from sql.sqlreview import getDetailUrl, execute_call_back
@@ -637,3 +639,26 @@ def workflowsdetail(request, audit_id):
     auditInfo = workflowOb.auditinfo(audit_id)
     if auditInfo.workflow_type == WorkflowDict.workflow_type['query']:
         return HttpResponseRedirect(reverse('sql:queryapplydetail', args=(auditInfo.workflow_id,)))
+
+def change_password(request):
+    #loginUser = request.session.get('login_username', False)
+    if request.method == 'GET':
+        form = ChangepwdForm()
+        return render_to_response('change_password.html', RequestContext(request, {'form': form,}))
+    else:
+        form = ChangepwdForm(request.POST)
+        if form.is_valid():
+            #username = request.user.username  
+            username = request.session.get('login_username', False)
+            #print(username)
+            oldpassword = request.POST.get('oldpassword', '')
+            user = auth.authenticate(username=username, password=oldpassword)
+            if user is not None and user.is_active:
+                newpassword = request.POST.get('newpassword1', '')
+                user.set_password(newpassword)
+                user.save()
+                return render_to_response('login.html', RequestContext(request,{'changepwd_success':True}))
+            else:
+                return render_to_response('change_password.html', RequestContext(request, {'form': form,'oldpassword_is_wrong':True}))
+        else:
+            return render_to_response('change_password.html', RequestContext(request, {'form': form,}))

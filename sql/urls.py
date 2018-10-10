@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^editsql/$', views.submitSql, name='editsql'),
     url(r'^allworkflow/$', views.sqlworkflow, name='sqlworkflow'),
     url(r'^check_code/$', views.check_code, name='check_code'),
+    url(r'^change_password/$', views.change_password, name='change_password'),
 
     url(r'^autoreview/$', views.autoreview, name='autoreview'),
     url(r'^detail/(?P<workflowId>[0-9]+)/$', views.detail, name='detail'),
