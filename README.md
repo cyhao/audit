@@ -1,4 +1,5 @@
-原始项目地址：https://github.com/jly8866/archer
+
+
 # archer
 基于inception的自动化SQL操作平台，支持工单、审核、定时任务、邮件、OSC等功能，还可配置MySQL查询、慢查询管理、会话管理等
 
